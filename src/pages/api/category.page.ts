@@ -6,6 +6,7 @@ import fs from 'fs';
 import multiparty from 'multiparty';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+// Export here
 export const config = {
   api: {
     bodyParser: false,
@@ -14,6 +15,7 @@ export const config = {
 
 const filepath = 'src/pages/api/category.page.ts';
 
+// Export here too
 export async function getCategory(
   categoryId: string,
 ): Promise<ExtendedCategory | null> {
