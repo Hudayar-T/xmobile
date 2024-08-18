@@ -1,0 +1,39 @@
+{
+  "tasks": [
+    {
+      "label": "Add translation row",
+      "type": "shell",
+      "command": "node",
+      "args": [
+        "scripts/add-translation-row.mjs",
+        "${input:add_key}",
+        "${input:add_value}"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Delete translation row",
+      "type": "shell",
+      "command": "node",
+      "args": ["scripts/remove-translation-row.mjs", "${input:remove_key}"],
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "add_key",
+      "type": "promptString",
+      "description": "Enter the translation key to add."
+    },
+    {
+      "id": "add_value",
+      "type": "promptString",
+      "description": "Enter the translation value to add."
+    },
+    {
+      "id": "remove_key",
+      "type": "promptString",
+      "description": "Enter the translation key to delete."
+    }
+  ]
+}
