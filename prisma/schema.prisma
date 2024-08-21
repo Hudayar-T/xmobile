@@ -1,0 +1,77 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "darwin-arm64", "linux-arm64-openssl-3.0.x", "debian-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String      @id @default(uuid())
+  name            String
+  email           String      @unique
+  password        String
+  grade           UserRole    @default(FREE)
+  phoneNumber     String?
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Category {
+  id                              String      @id @default(uuid())
+  name                            String
+
+  predecessorId                   String?
+  predecessorCategory             Category?   @relation("succCategory", references: [id], fields: [predecessorId], onDelete: Cascade)
+  successorCategories             Category[]   @relation("succCategory")
+
+  products                        Product[]
+
+  imgUrl                          String?
+
+  createdAt                       DateTime    @default(now())
+  updatedAt                       DateTime    @updatedAt
+}
+
+
+model Product {
+  id              String      @id @default(uuid())
+  name            String
+  description     String?
+  imgUrls         String[]
+  price           String?
+
+  categories      Category    @relation(references: [id], fields: [categoryId], onDelete: Cascade)
+  categoryId      String
+
+  tags            String[]
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+model Prices {
+  name            String    @id @unique
+  price           String    
+  priceInTmt      String    @default("0")
+
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([price])
+}
+
+model DollarRate {
+  id              Int         @id @default(autoincrement())
+  rate            Float       
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+}
+
+enum UserRole {
+  FREE
+  ADMIN
+}
