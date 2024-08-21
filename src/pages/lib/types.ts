@@ -79,6 +79,12 @@ export interface CarouselArrowProps {
   onClick?: () => void;
 }
 
+export interface GoodType {
+  version: Float32Array;
+  name: string;
+  value: string;
+}
+
 export interface CarouselSettings {
   accessibility?: boolean; // Default: true; Enable tabbing and arrow key navigation
   adaptiveHeight?: boolean; // Default: false; Adjust the slide's height automatically
