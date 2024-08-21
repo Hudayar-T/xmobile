@@ -6,6 +6,10 @@ const UserContext = createContext<UserContextProps>({
   user: undefined,
   setUser: () => undefined,
 });
+const AdminResult = {
+  acces: 'key',
+  page: 1,
+};
 
 export const useUserContext = () => useContext(UserContext);
 
